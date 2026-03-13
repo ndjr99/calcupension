@@ -150,7 +150,7 @@ Contiene la **interfaz de consola** que permite al usuario interactuar con el si
 Contiene las **pruebas unitarias** del sistema.
 
 ```
-tests/
+test/
 test_calcupension.py
 ```
 
@@ -185,7 +185,7 @@ Este archivo permite que **Python reconozca la carpeta como un módulo** y permi
 Para ejecutar las pruebas desde la **carpeta raíz del proyecto**, utilice:
 
 ```
-py tests\test_calcupension.py
+py test\test_calcupension.py
 ```
 
 Para poder ejecutar las pruebas desde la carpeta raíz, el módulo de pruebas incluye las siguientes líneas al inicio:
