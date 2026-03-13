@@ -1,40 +1,74 @@
 # CALCUPENSION
-SISTEMA DE CÁLCULO PENSIONAL
 
-Este proyecto implementa un sistema en Python para calcular la tasa de reemplazo y la mesada pensional según el tipo de pensión.
+Sistema de cálculo pensional desarrollado en **Python** que permite calcular la **tasa de reemplazo** y la **mesada pensional** según el tipo de pensión.
 
-El sistema incluye:
-- Cálculo de tasa de reemplazo
-- Cálculo de mesada pensional
-- Validaciones obligatorias
-- Excepciones personalizadas
-- Pruebas unitarias automatizadas
-- Interfaz de consola para el usuario
+Este proyecto fue modificado en un **fork por BillVelasquez**.
 
 ---
 
-# ESTRUCTURA DEL PROYECTO
+# ¿Quién hizo esto?
 
-El proyecto está compuesto por:
+Autores del proyecto:
 
-- src/model/logica_calcupension.py → Contiene la lógica del cálculo
-- src/view/consola_calcupension.py → Interfaz de consola para interactuar con el sistema
-- test/test_calcupension.py → Contiene las pruebas unitarias
-- README.md → Documentación del sistema
+* Francisco Gómez Gutiérrez
+* Nelson David Jiménez Ruiz
 
 ---
 
-# EJECUCIÓN DE LA CONSOLA
+# ¿Qué es y para qué es?
 
-El sistema incluye una interfaz de consola que permite calcular pensiones de forma interactiva.
+CALCUPENSION es una aplicación que permite calcular el valor de una pensión de acuerdo con diferentes tipos de prestación del sistema pensional.
 
-Para ejecutarla, ubíquese en la carpeta raíz del proyecto y ejecute:
+El sistema permite calcular:
+
+* Pensión de Vejez
+* Pensión de Sobreviviente
+* Pensión de Invalidez
+
+A partir de información como:
+
+* IBL (Ingreso Base de Liquidación)
+* Semanas cotizadas
+* Edad
+* Género
+* PCL (Porcentaje de pérdida de capacidad laboral)
+
+El sistema calcula:
+
+* La **tasa de reemplazo**
+* La **mesada pensional estimada**
+
+El proyecto también incluye validaciones de reglas de negocio mediante **excepciones personalizadas** y **pruebas unitarias automatizadas**.
+
+---
+
+# ¿Cómo lo hago funcionar?
+
+## Prerrequisitos
+
+Antes de ejecutar el proyecto se debe tener instalado:
+
+* **Python 3.x**
+* Acceso a una **consola de comandos** (CMD o PowerShell)
+
+No se requieren bibliotecas externas adicionales.
+
+---
+
+## Ejecución
+
+Para ejecutar el programa **por fuera del entorno de desarrollo**, siga los siguientes pasos.
+
+1. Abra una consola de comandos.
+2. Ubíquese en la **carpeta raíz del proyecto**.
+
+Ejecute el siguiente comando:
 
 ```
-python consola_calcupension.py
+py src/view/consola_calcupension.py
 ```
 
-El sistema mostrará el siguiente menú:
+El sistema mostrará un menú interactivo:
 
 ```
 ===================================
@@ -46,18 +80,12 @@ El sistema mostrará el siguiente menú:
 4. Salir
 ```
 
-El usuario deberá ingresar:
-
-- IBL (Ingreso Base de Liquidación)
-- Semanas cotizadas
-- Género
-- Edad (cuando aplique)
-- PCL (cuando sea pensión de invalidez)
+El usuario deberá ingresar los datos solicitados para realizar el cálculo.
 
 Al finalizar, el sistema mostrará:
 
-- La tasa de reemplazo
-- La mesada pensional calculada
+* Tasa de reemplazo
+* Valor de la mesada pensional
 
 Ejemplo de salida:
 
@@ -70,170 +98,110 @@ Mesada pensional: $1,900,000
 
 ---
 
-# TIPOS DE PENSIÓN SOPORTADOS
+# ¿Cómo está hecho?
 
-El sistema permite calcular:
+El proyecto está desarrollado en **Python** siguiendo una estructura modular separando:
 
-- Pensión de Vejez
-- Pensión de Sobreviviente
-- Pensión de Invalidez
+* **Lógica del negocio**
+* **Interfaz de usuario**
+* **Pruebas**
 
----
+El sistema utiliza la biblioteca estándar de Python:
 
-# EXCEPCIONES PERSONALIZADAS
+* `unittest` para pruebas unitarias.
 
-El sistema valida reglas del negocio mediante excepciones propias:
+También implementa:
 
-error_ibl  
-Se genera cuando el IBL es menor o igual a 0.
-
-error_semanas_cotizadas  
-Se genera cuando no se cumplen las 1300 semanas mínimas para pensión de vejez.
-
-error_edad_minima_hombres  
-Se genera cuando un hombre tiene menos de 62 años.
-
-error_edad_minima_mujeres  
-Se genera cuando una mujer tiene menos de 57 años.
-
-error_pcl_invalidez  
-Se genera cuando la PCL es menor o igual a 50% en pensión de invalidez.
+* Validaciones de reglas del negocio
+* Excepciones personalizadas
+* Separación por capas de la aplicación.
 
 ---
 
-# FUNCIÓN: calcular_tasa_reemplazo()
+# Organización de los módulos
 
-Parámetros:
+## Carpeta src
 
-- tipo: Tipo de pensión ("Vejez", "Sobreviviente", "Invalidez")
-- ibl: Ingreso Base de Liquidación
-- semanas: Semanas cotizadas
-- genero: "Hombre" o "Mujer"
-- edad: Edad del afiliado
-- pcl: Porcentaje de pérdida de capacidad laboral
+Contiene el **código fuente de la aplicación** organizado por capas.
 
-Retorna:
+```
+src/
+│
+├─ model/
+│   logica_calcupension.py
+│
+├─ view/
+│   consola_calcupension.py
+```
 
-Tasa de reemplazo en porcentaje.
+### model
+
+Contiene la **lógica del cálculo pensional**, incluyendo:
+
+* cálculo de tasa de reemplazo
+* cálculo de mesada pensional
+* validaciones del sistema
+* excepciones personalizadas
+
+### view
+
+Contiene la **interfaz de consola** que permite al usuario interactuar con el sistema.
 
 ---
 
-# REGLAS DEL CÁLCULO
+## Carpeta tests
 
-SALARIO MÍNIMO USADO EN EL SISTEMA:
+Contiene las **pruebas unitarias** del sistema.
 
-SMMLV = 1.750.905
+```
+tests/
+test_calcupension.py
+```
+
+Las pruebas verifican:
+
+* cálculo correcto de pensión de vejez
+* cálculo para hombres y mujeres
+* incrementos por semanas adicionales
+* tope máximo de tasa de reemplazo
+* pensión de sobreviviente
+* pensión de invalidez
+* validaciones de errores
 
 ---
 
-# PENSIÓN DE VEJEZ
+# Importante sobre los módulos
 
-Requisitos:
-
-- Mínimo 1300 semanas
-- Edad mínima:
-  - Hombre: 62 años
-  - Mujer: 57 años
-
-Fórmula base:
+Cada carpeta de código fuente debe contener un archivo:
 
 ```
-r = 65.50 - (IBL / SMMLV) * 0.50
+__init__.py
 ```
 
-Incremento:
-
-- 1.5% por cada 50 semanas adicionales a 1300
-
-Límites:
-
-- Mínimo 55%
-- Máximo 80%
+Este archivo permite que **Python reconozca la carpeta como un módulo** y permite realizar importaciones entre los distintos componentes del proyecto.
 
 ---
 
-# PENSIÓN DE SOBREVIVIENTE
+# Uso
 
-Requisitos:
+## Ejecutar pruebas unitarias
 
-- Tasa base: 45%
-- Incremento: 2% por cada 50 semanas superiores a 500
-- Tope máximo: 75%
-
----
-
-# PENSIÓN DE INVALIDEZ
-
-Requisitos:
-
-- PCL debe ser mayor al 50%
-
-Si:
-
-50% < PCL ≤ 66%
-
-- Base 45%
-- Incremento 1.5% por cada 50 semanas superiores a 500
-
-Si:
-
-PCL > 66%
-
-- Base 54%
-- Incremento 2% por cada 50 semanas superiores a 500
-
-Límites:
-
-- Mínimo 45%
-- Máximo 75%
-
----
-
-# FUNCIÓN: calcular_pension()
-
-Parámetros:
-
-- tasa_total: Tasa de reemplazo en porcentaje
-- ibl: Ingreso Base de Liquidación
-- tipo: Tipo de pensión
-
-Cálculo:
+Para ejecutar las pruebas desde la **carpeta raíz del proyecto**, utilice:
 
 ```
-mesada = (tasa_total / 100) * ibl
+py tests\test_calcupension.py
 ```
 
-Regla especial:
-
-Si es pensión de vejez y la mesada es menor al SMMLV, se ajusta al salario mínimo.
-
----
-
-# PRUEBAS UNITARIAS
-
-El sistema incluye pruebas automáticas con unittest que validan:
-
-- Casos normales de pensión de vejez (hombre y mujer)
-- Incremento por semanas adicionales
-- Aplicación del salario mínimo
-- Tope máximo del 80%
-- Pensión de sobreviviente
-- Invalidez baja y alta
-- Validación de errores
-
-Para ejecutar las pruebas:
+Para poder ejecutar las pruebas desde la carpeta raíz, el módulo de pruebas incluye las siguientes líneas al inicio:
 
 ```
-python test_calcupension.py
+import sys
+sys.path.append("src")
 ```
 
-o
+Esto permite indicar a Python la **ruta donde se encuentran los módulos del proyecto**.
 
-```
-python -m unittest
-```
-
-Si todo funciona correctamente aparecerá:
+Si todas las pruebas pasan correctamente aparecerá un resultado similar a:
 
 ```
 Ran 13 tests
