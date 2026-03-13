@@ -2,20 +2,16 @@
 
 Sistema de cálculo pensional desarrollado en **Python** que permite calcular la **tasa de reemplazo** y la **mesada pensional** según el tipo de pensión.
 
-Este proyecto fue modificado en un **fork por BillVelasquez**.
-
 ---
 
-# ¿Quién hizo esto?
-
-Autores del proyecto:
+# Autores del proyecto:
 
 * Francisco Gómez Gutiérrez
 * Nelson David Jiménez Ruiz
 
 ---
 
-# ¿Qué es y para qué es?
+# Descripción
 
 CALCUPENSION es una aplicación que permite calcular el valor de una pensión de acuerdo con diferentes tipos de prestación del sistema pensional.
 
@@ -42,7 +38,7 @@ El proyecto también incluye validaciones de reglas de negocio mediante **excepc
 
 ---
 
-# ¿Cómo lo hago funcionar?
+# Funcionamiento
 
 ## Prerrequisitos
 
@@ -98,11 +94,11 @@ Mesada pensional: $1,900,000
 
 ---
 
-# ¿Cómo está hecho?
+# Desarrollo
 
 El proyecto está desarrollado en **Python** siguiendo una estructura modular separando:
 
-* **Lógica del negocio**
+* **Lógica del proyecto*
 * **Interfaz de usuario**
 * **Pruebas**
 
