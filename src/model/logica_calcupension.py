@@ -1,39 +1,39 @@
-class error_ibl(Exception):
+class ErrorIBL(Exception):
     """Excepción para cuando el IBL no es válido."""
     pass
 
 
-class error_semanas_cotizadas(Exception):
+class ErrorSemanasCotizadas(Exception):
     """Excepción para cuando las semanas cotizadas no son suficientes."""
     pass
 
 
-class error_edad_minima_hombres(Exception):
+class ErrorEdadMinimaHombres(Exception):
     """Excepción para cuando la edad mínima de hombres no se cumple."""
     pass
 
 
-class error_edad_minima_mujeres(Exception):
+class ErrorEdadMinimaMujeres(Exception):
     """Excepción para cuando la edad mínima de mujeres no se cumple."""
     pass
 
 
-class error_pcl_invalidez(Exception):
+class ErrorPCLInvalidez(Exception):
     """Excepción para cuando la PCL no es válida para pensión de invalidez."""
     pass
 
 
-class error_tipo_pension(Exception):
+class ErrorTipoPension(Exception):
     """Excepción para tipo de pensión inválido."""
     pass
 
 
-class error_genero(Exception):
+class ErrorGenero(Exception):
     """Excepción para género inválido."""
     pass
 
 
-class error_valores_negativos(Exception):
+class ErrorValoresNegativos(Exception):
     """Excepción para valores negativos en parámetros."""
     pass
 
@@ -47,30 +47,30 @@ def calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl):
     generos_validos = ["Hombre", "Mujer"]
 
     if tipo not in tipos_validos:
-        raise error_tipo_pension()
+        raise ErrorTipoPension()
 
     # El género solo importa en vejez
     if tipo == "Vejez" and genero not in generos_validos:
-        raise error_genero()
+        raise ErrorGenero()
 
     if semanas < 0:
-        raise error_valores_negativos()
+        raise ErrorValoresNegativos()
 
     # edad puede ser None (ej: sobreviviente)
     if edad is not None and edad < 0:
-        raise error_valores_negativos()
+        raise ErrorValoresNegativos()
 
     if ibl <= 0:
-        raise error_ibl()
+        raise ErrorIBL()
 
     if tipo == "Vejez" and semanas < 1300:
-        raise error_semanas_cotizadas()
+        raise ErrorSemanasCotizadas()
 
     if tipo == "Vejez" and genero == "Hombre" and edad is not None and edad < 62:
-        raise error_edad_minima_hombres()
+        raise ErrorEdadMinimaHombres()
 
     if tipo == "Vejez" and genero == "Mujer" and edad is not None and edad < 57:
-        raise error_edad_minima_mujeres()
+        raise ErrorEdadMinimaMujeres()
 
     # PENSIÓN DE VEJEZ
     if tipo == "Vejez":
@@ -114,7 +114,7 @@ def calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl):
     elif tipo == "Invalidez":
 
         if pcl <= 50:
-            raise error_pcl_invalidez()
+            raise ErrorPCLInvalidez()
 
         if pcl > 50 and pcl <= 66:
 

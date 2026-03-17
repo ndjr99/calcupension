@@ -13,7 +13,7 @@ Sistema de cálculo pensional desarrollado en **Python** que permite calcular la
 
 # Descripción
 
-CALCUPENSION es una aplicación que permite calcular el valor de una pensión de acuerdo con diferentes tipos de prestación del sistema pensional.
+CALCUPENSION es una aplicación que permite calcular la **tasa de reemplazo** y el **valor de la mesada pensional** de acuerdo con diferentes tipos de prestación del sistema pensional.
 
 El sistema permite calcular:
 
@@ -36,6 +36,8 @@ El sistema calcula:
 
 El proyecto también incluye validaciones de reglas de negocio mediante **excepciones personalizadas** y **pruebas unitarias automatizadas**.
 
+El sistema considera el **Salario Mínimo Mensual Legal Vigente (SMMLV)** para validar el valor mínimo de la mesada en pensión de vejez.
+
 ---
 
 # Funcionamiento
@@ -53,12 +55,18 @@ No se requieren bibliotecas externas adicionales.
 
 ## Ejecución
 
-Para ejecutar el programa **por fuera del entorno de desarrollo**, siga los siguientes pasos.
+Para ejecutar el programa **por fuera del entorno de desarrollo**, siga los siguientes pasos:
 
 1. Abra una consola de comandos.
 2. Ubíquese en la **carpeta raíz del proyecto**.
 
-Ejecute el siguiente comando:
+Ejecute alguno de los siguientes comandos:
+
+```
+python src/view/consola_calcupension.py
+```
+
+o en Windows:
 
 ```
 py src/view/consola_calcupension.py
@@ -98,19 +106,19 @@ Mesada pensional: $1,900,000
 
 El proyecto está desarrollado en **Python** siguiendo una estructura modular separando:
 
-* **Lógica del proyecto*
+* **Lógica del proyecto**
 * **Interfaz de usuario**
 * **Pruebas**
 
 El sistema utiliza la biblioteca estándar de Python:
 
-* `unittest` para pruebas unitarias.
+* `unittest` para pruebas unitarias
 
 También implementa:
 
 * Validaciones de reglas del negocio
 * Excepciones personalizadas
-* Separación por capas de la aplicación.
+* Separación por capas de la aplicación
 
 ---
 
@@ -118,7 +126,7 @@ También implementa:
 
 ## Carpeta src
 
-Contiene el **código fuente de la aplicación** organizado por capas.
+Contiene el **código fuente de la aplicación** organizado por capas:
 
 ```
 src/
@@ -145,13 +153,13 @@ Contiene la **interfaz de consola** que permite al usuario interactuar con el si
 
 ---
 
-## Carpeta tests
+## Carpeta test
 
-Contiene las **pruebas unitarias** del sistema.
+Contiene las **pruebas unitarias** del sistema:
 
 ```
 test/
-test_calcupension.py
+    test_calcupension.py
 ```
 
 Las pruebas verifican:
@@ -174,7 +182,7 @@ Cada carpeta de código fuente debe contener un archivo:
 __init__.py
 ```
 
-Este archivo permite que **Python reconozca la carpeta como un módulo** y permite realizar importaciones entre los distintos componentes del proyecto.
+Este archivo permite que **Python reconozca la carpeta como un módulo** y facilita las importaciones entre los distintos componentes del proyecto.
 
 ---
 
@@ -183,6 +191,12 @@ Este archivo permite que **Python reconozca la carpeta como un módulo** y permi
 ## Ejecutar pruebas unitarias
 
 Para ejecutar las pruebas desde la **carpeta raíz del proyecto**, utilice:
+
+```
+python test/test_calcupension.py
+```
+
+o en Windows:
 
 ```
 py test\test_calcupension.py

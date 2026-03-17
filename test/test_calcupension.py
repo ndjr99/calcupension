@@ -224,9 +224,8 @@ class TestCalculoPension(unittest.TestCase):
         edad = 63
         pcl = 0
 
-        with self.assertRaises(logica_calcupension.error_ibl):
-            tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-            mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
+        with self.assertRaises(logica_calcupension.ErrorIBL):
+            logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
 
     def test_error_semanas_cotizadas(self):
         """
@@ -240,9 +239,8 @@ class TestCalculoPension(unittest.TestCase):
         edad = 58
         pcl = 0
 
-        with self.assertRaises(logica_calcupension.error_semanas_cotizadas):
-                    tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-                    mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
+        with self.assertRaises(logica_calcupension.ErrorSemanasCotizadas):
+            logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
 
     def test_error_edad_minima_hombres(self):
         """
@@ -255,9 +253,8 @@ class TestCalculoPension(unittest.TestCase):
         edad = 50
         pcl = 0
 
-        with self.assertRaises(logica_calcupension.error_edad_minima_hombres):
-            tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-            mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
+        with self.assertRaises(logica_calcupension.ErrorEdadMinimaHombres):
+            logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
 
     def test_error_edad_minima_mujeres(self):
         """
@@ -270,9 +267,8 @@ class TestCalculoPension(unittest.TestCase):
         edad = 45
         pcl = 0
 
-        with self.assertRaises(logica_calcupension.error_edad_minima_mujeres):
-            tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-            mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
+        with self.assertRaises(logica_calcupension.ErrorEdadMinimaMujeres):
+            logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
 
 
 if __name__ == '__main__':
