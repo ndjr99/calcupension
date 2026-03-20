@@ -1,9 +1,39 @@
+"""
+Módulo de interfaz por consola para el sistema de cálculo pensional.
+
+Este programa permite al usuario interactuar con el sistema de cálculo
+de pensiones mediante un menú en consola.
+
+Funcionalidades:
+----------------
+- Selección del tipo de pensión (Vejez, Sobreviviente, Invalidez)
+- Ingreso de datos del afiliado
+- Validación básica de entradas
+- Cálculo de tasa de reemplazo
+- Cálculo de mesada pensional
+- Manejo de errores mediante excepciones personalizadas
+
+Dependencias:
+-------------
+- Módulo logica_calcupension (modelo del sistema)
+"""
+
 import sys
 sys.path.append("src")
 from model import logica_calcupension
 
 
 def mostrar_menu_principal():
+    """
+    Muestra el menú principal del sistema.
+
+    Opciones:
+    ---------
+    1. Pensión de Vejez
+    2. Pensión de Sobreviviente
+    3. Pensión de Invalidez
+    4. Salir
+    """
     print("\n===================================")
     print("     SISTEMA DE CÁLCULO PENSIONAL")
     print("===================================")
@@ -14,6 +44,19 @@ def mostrar_menu_principal():
 
 
 def solicitar_genero():
+    """
+    Solicita al usuario seleccionar el género.
+
+    Retorna:
+    --------
+    str:
+        "Hombre" o "Mujer"
+
+    Raises:
+    -------
+    ValueError:
+        Si el usuario ingresa una opción inválida.
+    """
     print("\nSeleccione género:")
     print("1. Hombre")
     print("2. Mujer")
@@ -29,6 +72,17 @@ def solicitar_genero():
 
 
 def main():
+    """
+    Función principal del sistema.
+
+    Controla el flujo del programa:
+    - Muestra el menú
+    - Solicita datos al usuario
+    - Ejecuta los cálculos
+    - Maneja errores
+
+    El programa se ejecuta en bucle hasta que el usuario decide salir.
+    """
     while True:
         mostrar_menu_principal()
         opcion = input("\nSeleccione una opción: ")
@@ -97,13 +151,18 @@ def main():
                 continue
 
             # =========================
-            # CÁLCULOS (LÓGICA)
+            # CREACIÓN DEL OBJETO
             # =========================
-            tasa = logica_calcupension.calcular_tasa_reemplazo(
+            solicitud = logica_calcupension.SolicitudPension(
                 tipo, ibl, semanas, genero, edad, pcl
             )
 
-            mesada = logica_calcupension.calcular_pension(
+            # =========================
+            # CÁLCULOS (LÓGICA)
+            # =========================
+            tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+
+            mesada = logica_calcupension.CalculadoraPension.calcular_pension(
                 tasa, ibl, tipo
             )
 
@@ -116,8 +175,11 @@ def main():
             print("---------------------------------")
 
         # =========================
-        # ERRORES DE LÓGICA
+        # MANEJO DE ERRORES
         # =========================
+        except logica_calcupension.ErrorIBL:
+            print("Error: El IBL debe ser mayor a 0.")
+
         except logica_calcupension.ErrorSemanasCotizadas:
             print("Error: No cumple con las 1300 semanas mínimas.")
 
@@ -144,4 +206,9 @@ def main():
 
 
 if __name__ == "__main__":
+    """
+    Punto de entrada del programa.
+
+    Ejecuta la función principal del sistema de consola.
+    """
     main()

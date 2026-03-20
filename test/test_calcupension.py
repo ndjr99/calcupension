@@ -34,241 +34,164 @@ class TestCalculoPension(unittest.TestCase):
     def test_normal_1(self):
         """
         Caso normal de pensión de vejez para hombre.
-        - 1300 semanas cotizadas
-        - Edad mínima cumplida
-        - Se valida tasa calculada y mesada resultante
         """
-        tipo = "Vejez"
-        ibl = 3_000_000
-        semanas = 1300
-        genero = "Hombre"
-        edad = 62
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 3_000_000, 1300, "Hombre", 62, 0
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 64.64
-        mesada_esperada = 1_939_299
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 64.64, 2)
+        self.assertAlmostEqual(mesada, 1_939_299, 0)
 
     def test_normal_2(self):
         """
         Caso normal de pensión de vejez para mujer.
-        Se valida el cálculo correcto de tasa y mesada.
         """
-        tipo = "Vejez"
-        ibl = 5_000_000
-        semanas = 1300
-        genero = "Mujer"
-        edad = 57
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 5_000_000, 1300, "Mujer", 57, 0
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 64.07
-        mesada_esperada = 3_203_608
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 64.07, 2)
+        self.assertAlmostEqual(mesada, 3_203_608, 0)
 
     def test_normal_3(self):
         """
         Caso normal de pensión de vejez para hombre.
-        Se valida el cálculo correcto de tasa y mesada.
         """
-        tipo = "Vejez"
-        ibl = 4_500_000
-        semanas = 1300
-        genero = "Hombre"
-        edad = 63
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 4_500_000, 1300, "Hombre", 63, 0
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 64.21
-        mesada_esperada = 2_889_673
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 64.21, 2)
+        self.assertAlmostEqual(mesada, 2_889_673, 0)
 
     def test_semanas_de_mas_cotizadas(self):
         """
-        Caso donde el afiliado tiene semanas adicionales
-        a las 1300 mínimas, generando incremento en la tasa.
+        Caso donde el afiliado tiene semanas adicionales.
         """
-        tipo = "Vejez"
-        ibl = 2_500_000
-        semanas = 1500
-        genero = "Hombre"
-        edad = 62
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 2_500_000, 1500, "Hombre", 62, 0
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 70.79
-        mesada_esperada = 1_769_652
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 70.79, 2)
+        self.assertAlmostEqual(mesada, 1_769_652, 0)
 
     def test_pension_de_sobreviviente(self):
         """
         Caso de pensión de sobreviviente.
-        Se valida el incremento por semanas superiores a 500.
         """
-        tipo = "Sobreviviente"
-        ibl = 3_500_000
-        semanas = 700
-        genero = "Hombre"
-        edad = None
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Sobreviviente", 3_500_000, 700, "Hombre", None, 0
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 53.00
-        mesada_esperada = 1_855_000
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 53.00, 2)
 
     def test_ibl_menor_al_SMMLV(self):
         """
-        Caso donde la mesada calculada es inferior
-        al Salario Mínimo Mensual Legal Vigente (SMMLV),
-        por lo tanto debe ajustarse al mínimo.
+        Caso donde la mesada es menor al SMMLV.
         """
-        tipo = "Vejez"
-        ibl = 1_400_000
-        semanas = 1400
-        genero = "Mujer"
-        edad = 57
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 1_400_000, 1400, "Mujer", 57, 0
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 68.10
-        mesada_esperada = 1_750_905
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 68.10, 2)
+        self.assertAlmostEqual(mesada, 1_750_905, 0)
 
     def test_mayor_a_tasa_maxima(self):
         """
-        Caso donde la tasa supera el tope máximo permitido (80%).
-        Se valida que el sistema aplique correctamente el límite.
+        Caso donde la tasa supera el 80%.
         """
-        tipo = "Vejez"
-        ibl = 10_000_000
-        semanas = 2000
-        genero = "Hombre"
-        edad = 62
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 10_000_000, 2000, "Hombre", 62, 0
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 80.00
-        mesada_esperada = 8_000_000
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 80.00, 2)
 
     def test_pension_de_invalidez_baja(self):
         """
-        Caso de pensión de invalidez con PCL entre 50% y 66%.
+        Caso de invalidez con PCL bajo.
         """
-        tipo = "Invalidez"
-        ibl = 2_800_000
-        semanas = 900
-        genero = "Mujer"
-        edad = 53
-        pcl = 65
+        solicitud = logica_calcupension.SolicitudPension(
+            "Invalidez", 2_800_000, 900, "Mujer", 53, 65
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 57.00
-        mesada_esperada = 1_596_000
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 57.00, 2)
 
     def test_pension_de_invalidez_alta(self):
         """
-        Caso de pensión de invalidez con PCL superior a 66%.
+        Caso de invalidez con PCL alto.
         """
-        tipo = "Invalidez"
-        ibl = 4_000_000
-        semanas = 1000
-        genero = "Hombre"
-        edad = 55
-        pcl = 70
+        solicitud = logica_calcupension.SolicitudPension(
+            "Invalidez", 4_000_000, 1000, "Hombre", 55, 70
+        )
 
-        tasa_reemplazo_calculada = logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
-        mesada_calculada = logica_calcupension.calcular_pension(tasa_reemplazo_calculada, ibl, tipo)
-        tasa_reemplazo_esperada = 74.00
-        mesada_esperada = 2_960_000
+        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
-        self.assertAlmostEqual(tasa_reemplazo_calculada, tasa_reemplazo_esperada, 2)
-        self.assertAlmostEqual(mesada_calculada, mesada_esperada, 0)
+        self.assertAlmostEqual(tasa, 74.00, 2)
 
     def test_error_ibl(self):
         """
-        Verifica que el sistema retorne error
-        cuando el IBL es menor o igual a 0.
+        Error por IBL inválido.
         """
-        tipo = "Vejez"
-        ibl = 0
-        semanas = 1350
-        genero = "Hombre"
-        edad = 63
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 0, 1350, "Hombre", 63, 0
+        )
 
         with self.assertRaises(logica_calcupension.ErrorIBL):
-            logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
+            logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
     def test_error_semanas_cotizadas(self):
         """
-        Verifica que el sistema retorne error
-        cuando no se cumplen las 1300 semanas mínimas.
+        Error por semanas insuficientes.
         """
-        tipo = "Vejez"
-        ibl = 2_000_000
-        semanas = 400
-        genero = "Mujer"
-        edad = 58
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 2_000_000, 400, "Mujer", 58, 0
+        )
 
         with self.assertRaises(logica_calcupension.ErrorSemanasCotizadas):
-            logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
+            logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
     def test_error_edad_minima_hombres(self):
         """
-        Verifica error cuando un hombre no cumple la edad mínima (62 años).
+        Error por edad mínima hombre.
         """
-        tipo = "Vejez"
-        ibl = 2_700_000
-        semanas = 1300
-        genero = "Hombre"
-        edad = 50
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 2_700_000, 1300, "Hombre", 50, 0
+        )
 
         with self.assertRaises(logica_calcupension.ErrorEdadMinimaHombres):
-            logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
+            logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
     def test_error_edad_minima_mujeres(self):
         """
-        Verifica error cuando una mujer no cumple la edad mínima (57 años).
+        Error por edad mínima mujer.
         """
-        tipo = "Vejez"
-        ibl = 4_500_000
-        semanas = 1300
-        genero = "Mujer"
-        edad = 45
-        pcl = 0
+        solicitud = logica_calcupension.SolicitudPension(
+            "Vejez", 4_500_000, 1300, "Mujer", 45, 0
+        )
 
         with self.assertRaises(logica_calcupension.ErrorEdadMinimaMujeres):
-            logica_calcupension.calcular_tasa_reemplazo(tipo, ibl, semanas, genero, edad, pcl)
+            logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
 
 if __name__ == '__main__':

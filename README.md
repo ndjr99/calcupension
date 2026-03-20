@@ -34,7 +34,11 @@ El sistema calcula:
 * La **tasa de reemplazo**
 * La **mesada pensional estimada**
 
-El proyecto también incluye validaciones de reglas de negocio mediante **excepciones personalizadas** y **pruebas unitarias automatizadas**.
+El proyecto implementa:
+
+* **Programación Orientada a Objetos (POO)**
+* Validaciones de reglas de negocio mediante **excepciones personalizadas**
+* **Pruebas unitarias automatizadas**
 
 El sistema considera el **Salario Mínimo Mensual Legal Vigente (SMMLV)** para validar el valor mínimo de la mesada en pensión de vejez.
 
@@ -62,27 +66,21 @@ Para ejecutar el programa **por fuera del entorno de desarrollo**, siga los sigu
 
 Ejecute alguno de los siguientes comandos:
 
-```
-python src/view/consola_calcupension.py
-```
+    python src/view/consola_calcupension.py
 
 o en Windows:
 
-```
-py src/view/consola_calcupension.py
-```
+    py src/view/consola_calcupension.py
 
 El sistema mostrará un menú interactivo:
 
-```
-===================================
-     SISTEMA DE CÁLCULO PENSIONAL
-===================================
-1. Pensión de Vejez
-2. Pensión de Sobreviviente
-3. Pensión de Invalidez
-4. Salir
-```
+    ===================================
+         SISTEMA DE CÁLCULO PENSIONAL
+    ===================================
+    1. Pensión de Vejez
+    2. Pensión de Sobreviviente
+    3. Pensión de Invalidez
+    4. Salir
 
 El usuario deberá ingresar los datos solicitados para realizar el cálculo.
 
@@ -93,32 +91,31 @@ Al finalizar, el sistema mostrará:
 
 Ejemplo de salida:
 
-```
------------ RESULTADO -----------
-Tasa de reemplazo: 65.5%
-Mesada pensional: $1,900,000
----------------------------------
-```
+    ----------- RESULTADO -----------
+    Tasa de reemplazo: 65.5%
+    Mesada pensional: $1,900,000
+    ---------------------------------
 
 ---
 
 # Desarrollo
 
-El proyecto está desarrollado en **Python** siguiendo una estructura modular separando:
+El proyecto está desarrollado en **Python** siguiendo una estructura modular y orientada a objetos, separando:
 
-* **Lógica del proyecto**
-* **Interfaz de usuario**
+* **Modelo (lógica del negocio)**
+* **Vista (interfaz de usuario)**
 * **Pruebas**
 
-El sistema utiliza la biblioteca estándar de Python:
+El sistema utiliza:
 
-* `unittest` para pruebas unitarias
+* unittest para pruebas unitarias
 
 También implementa:
 
-* Validaciones de reglas del negocio
+* Encapsulamiento de datos mediante clases
+* Validaciones centralizadas
 * Excepciones personalizadas
-* Separación por capas de la aplicación
+* Separación por capas
 
 ---
 
@@ -126,63 +123,77 @@ También implementa:
 
 ## Carpeta src
 
-Contiene el **código fuente de la aplicación** organizado por capas:
+Contiene el **código fuente de la aplicación**:
 
-```
-src/
-│
-├─ model/
-│   logica_calcupension.py
-│
-├─ view/
-│   consola_calcupension.py
-```
+    src/
+    │
+    ├─ model/
+    │   logica_calcupension.py
+    │
+    ├─ view/
+        consola_calcupension.py
 
-### model
+---
 
-Contiene la **lógica del cálculo pensional**, incluyendo:
+## model
 
-* cálculo de tasa de reemplazo
-* cálculo de mesada pensional
-* validaciones del sistema
-* excepciones personalizadas
+Contiene la lógica del sistema, incluyendo:
 
-### view
+### Clases principales:
 
-Contiene la **interfaz de consola** que permite al usuario interactuar con el sistema.
+* SolicitudPension  
+  Representa los datos de entrada del afiliado.
+
+* CalculadoraPension  
+  Contiene los métodos para:
+  - Calcular tasa de reemplazo  
+  - Calcular mesada pensional  
+  - Validar reglas del sistema  
+
+También incluye:
+
+* Excepciones personalizadas
+* Métodos de validación (check_*)
+
+---
+
+## view
+
+Contiene la interfaz de usuario en consola:
+
+* Permite ingresar datos
+* Crea objetos SolicitudPension
+* Invoca la lógica del modelo
+* Maneja errores mediante excepciones
 
 ---
 
 ## Carpeta test
 
-Contiene las **pruebas unitarias** del sistema:
+Contiene las **pruebas unitarias**:
 
-```
-test/
-    test_calcupension.py
-```
+    test/
+        test_calcupension.py
 
 Las pruebas verifican:
 
-* cálculo correcto de pensión de vejez
-* cálculo para hombres y mujeres
-* incrementos por semanas adicionales
-* tope máximo de tasa de reemplazo
-* pensión de sobreviviente
-* pensión de invalidez
-* validaciones de errores
+* Cálculo correcto de pensión de vejez
+* Diferencias entre hombres y mujeres
+* Incrementos por semanas adicionales
+* Tope máximo de tasa de reemplazo
+* Pensión de sobreviviente
+* Pensión de invalidez
+* Manejo de excepciones
 
 ---
 
 # Importante sobre los módulos
 
-Cada carpeta de código fuente debe contener un archivo:
+Cada carpeta debe contener:
 
-```
-__init__.py
-```
+    __init__.py
 
-Este archivo permite que **Python reconozca la carpeta como un módulo** y facilita las importaciones entre los distintos componentes del proyecto.
+Esto permite que Python reconozca las carpetas como módulos.
 
 ---
 
@@ -190,30 +201,22 @@ Este archivo permite que **Python reconozca la carpeta como un módulo** y facil
 
 ## Ejecutar pruebas unitarias
 
-Para ejecutar las pruebas desde la **carpeta raíz del proyecto**, utilice:
+Desde la carpeta raíz:
 
-```
-python test/test_calcupension.py
-```
+    python test/test_calcupension.py
 
 o en Windows:
 
-```
-py test\test_calcupension.py
-```
+    py test\test_calcupension.py
 
-Para poder ejecutar las pruebas desde la carpeta raíz, el módulo de pruebas incluye las siguientes líneas al inicio:
+El archivo de pruebas incluye:
 
-```
-import sys
-sys.path.append("src")
-```
+    import sys
+    sys.path.append("src")
 
-Esto permite indicar a Python la **ruta donde se encuentran los módulos del proyecto**.
+Esto permite ubicar los módulos correctamente.
 
-Si todas las pruebas pasan correctamente aparecerá un resultado similar a:
+Si todo funciona correctamente:
 
-```
-Ran 13 tests
-OK
-```
+    Ran 13 tests
+    OK
