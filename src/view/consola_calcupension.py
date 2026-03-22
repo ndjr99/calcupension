@@ -87,6 +87,13 @@ def main():
         mostrar_menu_principal()
         opcion = input("\nSeleccione una opción: ")
 
+        # =========================
+        # VALIDACIÓN DE OPCIÓN
+        # =========================
+        if opcion not in ["1", "2", "3", "4"]:
+            print("Error: Opción inválida.")
+            continue
+
         if opcion == "4":
             print("\nSaliendo del sistema...")
             break
@@ -95,9 +102,11 @@ def main():
             # =========================
             # VALIDACIÓN DE IBL
             # =========================
-            ibl = float(input("\nIngrese el IBL: "))
-            if ibl <= 0:
-                print("Error: El IBL debe ser mayor a 0.")
+            ingreso_base_liquidacion = float(
+                input("\nIngrese el Ingreso Base de Liquidación (IBL): ")
+            )
+            if ingreso_base_liquidacion <= 0:
+                print("Error: El Ingreso Base de Liquidación debe ser mayor a 0.")
                 continue
 
             # =========================
@@ -110,7 +119,7 @@ def main():
 
             # Valores por defecto
             edad = None
-            pcl = 0
+            porcentaje_perdida_capacidad_laboral = 0
             genero = None
 
             # =========================
@@ -141,20 +150,23 @@ def main():
                     print("Error: La edad no puede ser negativa.")
                     continue
 
-                pcl = float(input("Ingrese el porcentaje de PCL: "))
-                if pcl < 0:
-                    print("Error: La PCL no puede ser negativa.")
+                porcentaje_perdida_capacidad_laboral = float(
+                    input("Ingrese el Porcentaje de Pérdida de Capacidad Laboral (PCL): ")
+                )
+                if porcentaje_perdida_capacidad_laboral < 0:
+                    print("Error: El Porcentaje de Pérdida de Capacidad Laboral no puede ser negativo.")
                     continue
-
-            else:
-                print("Opción inválida.")
-                continue
 
             # =========================
             # CREACIÓN DEL OBJETO
             # =========================
             solicitud = logica_calcupension.SolicitudPension(
-                tipo, ibl, semanas, genero, edad, pcl
+                tipo,
+                ingreso_base_liquidacion,
+                semanas,
+                genero,
+                edad,
+                porcentaje_perdida_capacidad_laboral
             )
 
             # =========================
@@ -163,7 +175,7 @@ def main():
             tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
             mesada = logica_calcupension.CalculadoraPension.calcular_pension(
-                tasa, ibl, tipo
+                tasa, ingreso_base_liquidacion, tipo
             )
 
             # =========================
@@ -178,7 +190,7 @@ def main():
         # MANEJO DE ERRORES
         # =========================
         except logica_calcupension.ErrorIBL:
-            print("Error: El IBL debe ser mayor a 0.")
+            print("Error: El Ingreso Base de Liquidación debe ser mayor a 0.")
 
         except logica_calcupension.ErrorSemanasCotizadas:
             print("Error: No cumple con las 1300 semanas mínimas.")
@@ -190,7 +202,7 @@ def main():
             print("Error: Mujer menor de 57 años.")
 
         except logica_calcupension.ErrorPCLInvalidez:
-            print("Error: La PCL debe ser mayor al 50%.")
+            print("Error: El Porcentaje de Pérdida de Capacidad Laboral debe ser mayor al 50%.")
 
         except logica_calcupension.ErrorTipoPension:
             print("Error: Tipo de pensión inválido.")

@@ -35,12 +35,14 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso normal de pensión de vejez para hombre.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 3_000_000, 1300, "Hombre", 62, 0
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
-        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada: float = logica_calcupension.CalculadoraPension.calcular_pension(
+            tasa, solicitud.ingreso_base_liquidacion, solicitud.tipo
+        )
 
         self.assertAlmostEqual(tasa, 64.64, 2)
         self.assertAlmostEqual(mesada, 1_939_299, 0)
@@ -49,12 +51,14 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso normal de pensión de vejez para mujer.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 5_000_000, 1300, "Mujer", 57, 0
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
-        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada: float = logica_calcupension.CalculadoraPension.calcular_pension(
+            tasa, solicitud.ingreso_base_liquidacion, solicitud.tipo
+        )
 
         self.assertAlmostEqual(tasa, 64.07, 2)
         self.assertAlmostEqual(mesada, 3_203_608, 0)
@@ -63,12 +67,14 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso normal de pensión de vejez para hombre.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 4_500_000, 1300, "Hombre", 63, 0
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
-        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada: float = logica_calcupension.CalculadoraPension.calcular_pension(
+            tasa, solicitud.ingreso_base_liquidacion, solicitud.tipo
+        )
 
         self.assertAlmostEqual(tasa, 64.21, 2)
         self.assertAlmostEqual(mesada, 2_889_673, 0)
@@ -77,12 +83,14 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso donde el afiliado tiene semanas adicionales.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 2_500_000, 1500, "Hombre", 62, 0
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
-        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada: float = logica_calcupension.CalculadoraPension.calcular_pension(
+            tasa, solicitud.ingreso_base_liquidacion, solicitud.tipo
+        )
 
         self.assertAlmostEqual(tasa, 70.79, 2)
         self.assertAlmostEqual(mesada, 1_769_652, 0)
@@ -91,11 +99,11 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso de pensión de sobreviviente.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Sobreviviente", 3_500_000, 700, "Hombre", None, 0
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
         self.assertAlmostEqual(tasa, 53.00, 2)
 
@@ -103,12 +111,14 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso donde la mesada es menor al SMMLV.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 1_400_000, 1400, "Mujer", 57, 0
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
-        mesada = logica_calcupension.CalculadoraPension.calcular_pension(tasa, solicitud.ibl, solicitud.tipo)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        mesada: float = logica_calcupension.CalculadoraPension.calcular_pension(
+            tasa, solicitud.ingreso_base_liquidacion, solicitud.tipo
+        )
 
         self.assertAlmostEqual(tasa, 68.10, 2)
         self.assertAlmostEqual(mesada, 1_750_905, 0)
@@ -117,11 +127,11 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso donde la tasa supera el 80%.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 10_000_000, 2000, "Hombre", 62, 0
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
         self.assertAlmostEqual(tasa, 80.00, 2)
 
@@ -129,11 +139,11 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso de invalidez con PCL bajo.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Invalidez", 2_800_000, 900, "Mujer", 53, 65
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
         self.assertAlmostEqual(tasa, 57.00, 2)
 
@@ -141,11 +151,11 @@ class TestCalculoPension(unittest.TestCase):
         """
         Caso de invalidez con PCL alto.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Invalidez", 4_000_000, 1000, "Hombre", 55, 70
         )
 
-        tasa = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
+        tasa: float = logica_calcupension.CalculadoraPension.calcular_tasa_reemplazo(solicitud)
 
         self.assertAlmostEqual(tasa, 74.00, 2)
 
@@ -153,7 +163,7 @@ class TestCalculoPension(unittest.TestCase):
         """
         Error por IBL inválido.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 0, 1350, "Hombre", 63, 0
         )
 
@@ -164,7 +174,7 @@ class TestCalculoPension(unittest.TestCase):
         """
         Error por semanas insuficientes.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 2_000_000, 400, "Mujer", 58, 0
         )
 
@@ -175,7 +185,7 @@ class TestCalculoPension(unittest.TestCase):
         """
         Error por edad mínima hombre.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 2_700_000, 1300, "Hombre", 50, 0
         )
 
@@ -186,7 +196,7 @@ class TestCalculoPension(unittest.TestCase):
         """
         Error por edad mínima mujer.
         """
-        solicitud = logica_calcupension.SolicitudPension(
+        solicitud: logica_calcupension.SolicitudPension = logica_calcupension.SolicitudPension(
             "Vejez", 4_500_000, 1300, "Mujer", 45, 0
         )
 
