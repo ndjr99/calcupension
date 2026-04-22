@@ -2,6 +2,18 @@
 
 Sistema de cálculo pensional desarrollado en **Python** que permite calcular la **tasa de reemplazo** y la **mesada pensional** según el tipo de pensión.
 
+
+---
+
+# Fork del proyecto por:
+
+* Jose Manuel Jaramillo Valencia
+* Miguel Angel Salazar
+
+---
+
+
+
 ---
 
 # Autores del proyecto:
