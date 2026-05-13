@@ -4,6 +4,13 @@ Sistema de cálculo pensional desarrollado en **Python** que permite calcular la
 
 ---
 
+# Fork del proyecto por:
+
+* Jose Manuel Jaramillo Valencia
+* Miguel Angel Salazar
+
+---
+
 # Autores del proyecto:
 
 * Francisco Gómez Gutiérrez
@@ -39,6 +46,7 @@ El proyecto implementa:
 * **Programación Orientada a Objetos (POO)**
 * Validaciones de reglas de negocio mediante **excepciones personalizadas**
 * **Pruebas unitarias automatizadas**
+* **Interfaz Gráfica Amigable** desarrollada en Kivy con manejo de errores mediante Popups.
 
 El sistema considera el **Salario Mínimo Mensual Legal Vigente (SMMLV)** para validar el valor mínimo de la mesada en pensión de vejez.
 
@@ -51,20 +59,21 @@ El sistema considera el **Salario Mínimo Mensual Legal Vigente (SMMLV)** para v
 Antes de ejecutar el proyecto se debe tener instalado:
 
 * **Python 3.x**
-* Acceso a una **consola de comandos** (CMD o PowerShell)
-
-No se requieren bibliotecas externas adicionales.
+* **Librería Kivy**: Necesaria para la interfaz gráfica. Se instala con:  
+  `pip install kivy`
+* Acceso a una **consola de comandos** (CMD, PowerShell o Terminal de Linux)
 
 ---
 
 ## Ejecución
 
-Para ejecutar el programa **por fuera del entorno de desarrollo**, siga los siguientes pasos:
+### 💻 Interfaz Gráfica (Recomendado)
+Para ejecutar la interfaz gráfica desde la línea de comandos, ubíquese en la **carpeta raíz del proyecto** y ejecute:
 
-1. Abra una consola de comandos.
-2. Ubíquese en la **carpeta raíz del proyecto**.
+    python main.py
 
-Ejecute alguno de los siguientes comandos:
+### ⌨️ Versión de Consola
+Para ejecutar la versión original por consola, ejecute alguno de los siguientes comandos:
 
     python src/view/consola_calcupension.py
 
@@ -72,29 +81,16 @@ o en Windows:
 
     py src/view/consola_calcupension.py
 
-El sistema mostrará un menú interactivo:
+El sistema mostrará un menú interactivo para ingresar los datos solicitados.
 
-    ===================================
-         SISTEMA DE CÁLCULO PENSIONAL
-    ===================================
-    1. Pensión de Vejez
-    2. Pensión de Sobreviviente
-    3. Pensión de Invalidez
-    4. Salir
+---
 
-El usuario deberá ingresar los datos solicitados para realizar el cálculo.
+# 📱 Versión Móvil (Android)
 
-Al finalizar, el sistema mostrará:
+La aplicación ha sido compilada exitosamente para Android utilizando **Buildozer**.
 
-* Tasa de reemplazo
-* Valor de la mesada pensional
-
-Ejemplo de salida:
-
-    ----------- RESULTADO -----------
-    Tasa de reemplazo: 65.5%
-    Mesada pensional: $1,900,000
-    ---------------------------------
+* **Descarga**: Puede descargar el archivo **.apk** directamente desde la sección de **[Releases](https://github.com/Salas18/calcupension_/releases)** de este repositorio.
+* **Instalación**: Una vez descargado, permita la instalación desde fuentes desconocidas en los ajustes de seguridad de su dispositivo móvil.
 
 ---
 
@@ -121,17 +117,19 @@ También implementa:
 
 # Organización de los módulos
 
-## Carpeta src
+## Carpeta src y Raíz
 
 Contiene el **código fuente de la aplicación**:
 
-    src/
+    calcupension/
     │
-    ├─ model/
-    │   logica_calcupension.py
-    │
-    ├─ view/
-        consola_calcupension.py
+    ├─ main.py                # Punto de entrada para la GUI y Android
+    ├─ src/
+    │  ├─ model/
+    │  │  └─ logica_calcupension.py
+    │  └─ view/
+    │     └─ consola_calcupension.py
+    └─ source/view/           # Archivos de interfaz gráfica Kivy (Clean Code)
 
 ---
 
@@ -159,12 +157,12 @@ También incluye:
 
 ## view
 
-Contiene la interfaz de usuario en consola:
+Contiene la interfaz de usuario tanto en consola como gráfica:
 
-* Permite ingresar datos
-* Crea objetos SolicitudPension
-* Invoca la lógica del modelo
-* Maneja errores mediante excepciones
+* Permite ingresar datos de forma intuitiva.
+* Crea objetos SolicitudPension.
+* Invoca la lógica del modelo.
+* Maneja errores mediante excepciones y ventanas emergentes (**Popups**) para evitar cierres inesperados.
 
 ---
 
