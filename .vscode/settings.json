@@ -1,10 +1,5 @@
 {
-    "python.autoComplete.extraPaths": [
-       "src"
-    ],
-    "python.analysis.extraPaths": [
-        "src"
-    ],
+    "python-envs.defaultEnvManager": "ms-python.python:system",
     "python.testing.unittestArgs": [
         "-v",
         "-s",
