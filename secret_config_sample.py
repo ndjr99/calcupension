@@ -1,4 +1,4 @@
-# Recuerde poner aqui los datos d econexion y guardar como SecretConfig.py
+# Recuerde poner aquí los datos de conexión y guardar como secret_config.py
 
 PGHOST='PONGA EL HOST DE LA BD AQUI'
 PGDATABASE='PONGA EL NOMBRE DE LA BD AQUI'

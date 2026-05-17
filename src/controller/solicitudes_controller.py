@@ -33,8 +33,8 @@ class SolicitudesPensionController:
 
     def insertar(solicitud: SolicitudesPension):
         cursor = SolicitudesPensionController.obtener_cursor()
-        consulta = f""" INSERT INTO solicitudes_pension (id_solicitud, tipo, ingreso_base_liquidacion, semanas, genero, edad, porcentaje_pcl, fecha)
-        VALUES ({solicitud.id_solicitud}, '{solicitud.tipo}', {solicitud.ingreso_base_liquidacion}, {solicitud.semanas}, '{solicitud.genero}', {solicitud.edad}, {solicitud.porcentaje_pcl}, '{solicitud.fecha}'); """
+        consulta = f""" INSERT INTO solicitudes_pension (id_solicitud, tipo, ingreso_base_liquidacion, semanas, genero, edad, porcentaje_perdida_capacidad_laboral, fecha, tasa_reemplazo, mesada)
+        VALUES ({solicitud.id_solicitud}, '{solicitud.tipo}', {solicitud.ingreso_base_liquidacion}, {solicitud.semanas}, '{solicitud.genero}', {solicitud.edad}, {solicitud.porcentaje_perdida_capacidad_laboral}, '{solicitud.fecha}', {solicitud.tasa_reemplazo}, {solicitud.mesada}); """
         
         cursor.execute(consulta)
         cursor.connection.commit()
@@ -44,11 +44,11 @@ class SolicitudesPensionController:
         # Conectar a la BD
         cursor = SolicitudesPensionController.obtener_cursor()
         # Ejecutamos el sql para traer una fila
-        consulta = f""" SELECT id_solicitud, tipo, ingreso_base_liquidacion, semanas, genero, edad, porcentaje_pcl, fecha
+        consulta = f""" SELECT id_solicitud, tipo, ingreso_base_liquidacion, semanas, genero, edad, porcentaje_perdida_capacidad_laboral, fecha, tasa_reemplazo, mesada
             FROM solicitudes_pension WHERE id_solicitud = {id_solicitud}; """
         cursor.execute(consulta)
         
         # La fila retorna la carga en la instancia de la clase SolicitudesPension
         fila = cursor.fetchone()
-        solicitud = SolicitudesPension(id_solicitud=fila[0], tipo=fila[1], ingreso_base_liquidacion=fila[2], semanas=fila[3], genero=fila[4], edad=fila[5], porcentaje_pcl=fila[6], fecha=fila[7])
+        solicitud = SolicitudesPension(id_solicitud=fila[0], tipo=fila[1], ingreso_base_liquidacion=fila[2], semanas=fila[3], genero=fila[4], edad=fila[5], porcentaje_perdida_capacidad_laboral=float(fila[6]), fecha=fila[7], tasa_reemplazo=float(fila[8]), mesada=float(fila[9]))
         return solicitud

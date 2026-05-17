@@ -5,6 +5,8 @@ CREATE TABLE solicitudes_pension (
     semanas INTEGER NOT NULL,
     genero VARCHAR(10),
     edad INTEGER,
-    porcentaje_pcl NUMERIC(5,2),
-    fecha TIMESTAMP NOT NULL
+    porcentaje_perdida_capacidad_laboral NUMERIC(5,2),
+    fecha TIMESTAMP NOT NULL,
+    tasa_reemplazo NUMERIC(5,2),
+    mesada NUMERIC(12,2)
 );
