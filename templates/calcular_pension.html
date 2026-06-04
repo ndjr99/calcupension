@@ -7,8 +7,8 @@
 
 <body>
 
-    <form action="/guardar_solicitud">
-        <h2>Insertar y calcular una solicitud de pensión</h2>
+    <form action="/pension_calculada">
+        <h2>Calcular pensión</h2>
         <table>
             <tr>
                 <td>Tipo de pensión:</td>
@@ -47,12 +47,13 @@
             </tr>
         </table>
 
-        <input type="submit" value="Calcular y guardar pensión">
+        <input type="submit" value="Calcular pensión">
 
         {% if error %}
             <p style="color: red;">{{ error }}</p>
         {% endif %}
 
     </form>
+
 </body>
 </html>

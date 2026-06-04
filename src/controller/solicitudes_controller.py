@@ -33,8 +33,9 @@ class SolicitudesPensionController:
 
     def insertar(solicitud: SolicitudesPension):
         cursor = SolicitudesPensionController.obtener_cursor()
+        edad = solicitud.edad if solicitud.edad is not None else "NULL"
         consulta = f""" INSERT INTO solicitudes_pension (id_solicitud, tipo, ingreso_base_liquidacion, semanas, genero, edad, porcentaje_perdida_capacidad_laboral, fecha, tasa_reemplazo, mesada)
-        VALUES ({solicitud.id_solicitud}, '{solicitud.tipo}', {solicitud.ingreso_base_liquidacion}, {solicitud.semanas}, '{solicitud.genero}', {solicitud.edad}, {solicitud.porcentaje_perdida_capacidad_laboral}, '{solicitud.fecha}', {solicitud.tasa_reemplazo}, {solicitud.mesada}); """
+        VALUES ({solicitud.id_solicitud}, '{solicitud.tipo}', {solicitud.ingreso_base_liquidacion}, {solicitud.semanas}, '{solicitud.genero}', {edad}, {solicitud.porcentaje_perdida_capacidad_laboral}, '{solicitud.fecha}', {solicitud.tasa_reemplazo}, {solicitud.mesada}); """
         
         cursor.execute(consulta)
         cursor.connection.commit()
