@@ -1,3 +1,5 @@
+---
+
 # CALCUPENSION
 
 Sistema de cálculo pensional desarrollado en **Python** que permite calcular la **tasa de reemplazo** y la **mesada pensional** según el tipo de pensión.
@@ -64,6 +66,8 @@ Antes de ejecutar el proyecto se debe tener instalado:
   `pip install kivy`
 * **psycopg2**: Necesario para la conexión con PostgreSQL. Se instala con:  
   `pip install psycopg2`
+* **Flask**: Necesario para la interfaz web. Se instala con:  
+  `pip install flask`
 * **PostgreSQL**: Motor de base de datos. Descargable desde https://www.postgresql.org/download/
 * Acceso a una **consola de comandos** (CMD, PowerShell o Terminal de Linux)
 
@@ -105,7 +109,18 @@ Las tablas se crean automáticamente al ejecutar las pruebas unitarias. También
 
 ## Ejecución
 
-### 💻 Interfaz Gráfica (Recomendado)
+### 🌐 Aplicación Web
+Para ejecutar la interfaz web, ubíquese en la **carpeta raíz del proyecto** y ejecute:
+
+    python app.py
+
+Luego abra su navegador en:
+
+    http://localhost:5000
+
+Si es la primera vez que ejecuta la aplicación, use la opción del menú de inicio para crear la tabla en la base de datos.
+
+### 💻 Interfaz Gráfica
 Para ejecutar la interfaz gráfica desde la línea de comandos, ubíquese en la **carpeta raíz del proyecto** y ejecute:
 
     python main.py
