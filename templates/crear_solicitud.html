@@ -6,39 +6,52 @@
 </head>
 
 <body>
+
     <form action="/guardar_solicitud">
-        <div>
-            Tipo de pensión: 
-            <select name="tipo">
-                <option value="Vejez">Vejez</option>
-                <option value="Sobreviviente">Sobreviviente</option> 
-                <option value="Invalidez">Invalidez</option>
-            </select>
-        </div>
-        <div>
-            Ingreso Base Liquidación: 
-            <input type="number" name="ingreso_base_liquidacion">
-        </div>
-        <div>
-            Semanas Cotizadas: 
-            <input type="number" name="semanas">
-        </div>
-        <div>
-            Género: 
-            <select name="genero">
-                <option value="Hombre">Hombre</option>
-                <option value="Mujer">Mujer</option>
-            </select>
-        </div>
-        <div>
-            Edad: 
-            <input type="number" name="edad">
-        </div>
-        <div>
-            Porcentaje de Pérdida de Capacidad Laboral: 
-            <input type="number" name="porcentaje_perdida_capacidad_laboral">
-        </div>
+        <h2>Insertar y calcular una solicitud de pensión</h2>
+        <table>
+            <tr>
+                <td>Tipo de pensión:</td>
+                <td>
+                    <select name="tipo">
+                        <option value="Vejez">Vejez</option>
+                        <option value="Sobreviviente">Sobreviviente</option>
+                        <option value="Invalidez">Invalidez</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Ingreso Base Liquidación:</td>
+                <td><input type="number" name="ingreso_base_liquidacion"></td>
+            </tr>
+            <tr>
+                <td>Semanas Cotizadas:</td>
+                <td><input type="number" name="semanas"></td>
+            </tr>
+            <tr>
+                <td>Género:</td>
+                <td>
+                    <select name="genero">
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Edad:</td>
+                <td><input type="number" name="edad"></td>
+            </tr>
+            <tr>
+                <td>Porcentaje de Pérdida de Capacidad Laboral:</td>
+                <td><input type="number" name="porcentaje_perdida_capacidad_laboral"></td>
+            </tr>
+        </table>
+
         <input type="submit" value="Calcular y guardar pensión">
     </form>
+
+    <div>
+        Si es la primera vez que ejecuta la aplicación <a href="/crear_tabla">haga clic aquí para crear la tabla. </a>
+    </div>
 </body>
 </html>

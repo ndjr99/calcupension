@@ -17,6 +17,11 @@ app = Flask(__name__)
 def solicitud():
     return render_template('crear_solicitud.html')
 
+@app.route('/crear_tabla')
+def crear_tabla():
+    SolicitudesPensionController.crear_tabla()
+    return "Tabla solicitudes_pension creada exitosamente."
+
 @app.route('/guardar_solicitud')
 def guardar_solicitud():
     solicitud = SolicitudPension(tipo=request.args['tipo'], ingreso_base_liquidacion=float(request.args['ingreso_base_liquidacion']), semanas=int(request.args['semanas']), genero=request.args['genero'], edad=int(request.args['edad']), porcentaje_perdida_capacidad_laboral=float(request.args['porcentaje_perdida_capacidad_laboral']))
@@ -39,5 +44,5 @@ def guardar_solicitud():
     # Insertar la solicitud en la base de datos
     SolicitudesPensionController.insertar(solicitud_pension)
 
-    return render_template("guardar_solicitud.html", tasa_reemplazo=tasa_reemplazo, mesada=mesada, tipo=solicitud_pension.tipo, ingreso_base_liquidacion=solicitud_pension.ingreso_base_liquidacion, semanas=solicitud_pension.semanas, genero=solicitud_pension.genero, edad=solicitud_pension.edad, fecha=solicitud_pension.fecha, porcentaje_perdida_capacidad_laboral=solicitud_pension.porcentaje_perdida_capacidad_laboral)
+    return render_template("guardar_solicitud.html", id_solicitud=solicitud_pension.id_solicitud, tasa_reemplazo=tasa_reemplazo, mesada=mesada, tipo=solicitud_pension.tipo, ingreso_base_liquidacion=solicitud_pension.ingreso_base_liquidacion, semanas=solicitud_pension.semanas, genero=solicitud_pension.genero, edad=solicitud_pension.edad, fecha=solicitud_pension.fecha, porcentaje_perdida_capacidad_laboral=solicitud_pension.porcentaje_perdida_capacidad_laboral)
 app.run(debug=True)
